@@ -4,9 +4,9 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const { connectDb } = require("./config/db");
-// const { notFound, errorHandler } = require("./middleware/errorHandler");
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 const { initializeSocket } = require("./socket");
-
+const authRoutes = require("./routes/authRoutes");
 
 require("dotenv").config();
 
@@ -22,10 +22,11 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+app.use("/api/auth", authRoutes);
 
 
-// app.use(notFound);
-// app.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 const port = process.env.PORT || 4000;
 
