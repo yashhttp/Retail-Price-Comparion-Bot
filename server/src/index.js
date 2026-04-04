@@ -7,7 +7,7 @@ const { connectDb } = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 const { initializeSocket } = require("./socket");
 const authRoutes = require("./routes/authRoutes");
-
+const priceRoutes = require("./routes/priceRoutes.js");
 require("dotenv").config();
 
 const app = express();
@@ -23,7 +23,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-
+app.use("/api/prices", priceRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
