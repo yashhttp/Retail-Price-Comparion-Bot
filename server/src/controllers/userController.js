@@ -1,5 +1,5 @@
 const User = require("../models/User.js");
-const Product = require("../models/Product");
+const Product = require("../models/Product.js");
 const Shop = require("../models/Shop.js");
 const { getEffectiveSubscription } = require("../utils/subscription");
 
