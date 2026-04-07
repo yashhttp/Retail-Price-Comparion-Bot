@@ -13,7 +13,7 @@ const {
 
 const router = express.Router();
 
-// router.get("/nearby", getNearbyShops);
+router.get("/nearby", getNearbyShops);
 // router.get("/search", searchShopsWithProducts);
 // router.get("/geocode", geocodeAddress);
 // router.get("/mine", authenticate, requireRole("shopkeeper", "admin"), getMyShops);

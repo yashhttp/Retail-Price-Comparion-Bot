@@ -104,28 +104,28 @@ const createShop = async (req, res, next) => {
   }
 };
 
-// const getNearbyShops = async (req, res, next) => {
-//   try {
-//     const { lat, lng, radius = 5000 } = req.query;
+const getNearbyShops = async (req, res, next) => {
+  try {
+    const { lat, lng, radius = 5000 } = req.query;
 
-//     if (!lat || !lng) {
-//       return res.status(400).json({ message: "lat and lng are required" });
-//     }
+    if (!lat || !lng) {
+      return res.status(400).json({ message: "lat and lng are required" });
+    }
 
-//     const shops = await Shop.find({
-//       location: {
-//         $near: {
-//           $geometry: { type: "Point", coordinates: [Number(lng), Number(lat)] },
-//           $maxDistance: Number(radius)
-//         }
-//       }
-//     });
+    const shops = await Shop.find({
+      location: {
+        $near: {
+          $geometry: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+          $maxDistance: Number(radius)
+        }
+      }
+    });
 
-//     return res.json({ shops });
-//   } catch (error) {
-//     return next(error);
-//   }
-// };
+    return res.json({ shops });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // const getMyShops = async (req, res, next) => {
 //   try {
@@ -292,7 +292,7 @@ const createShop = async (req, res, next) => {
 
 module.exports = {
   createShop,
-//   getNearbyShops,
+  getNearbyShops,
 //   getMyShops,
 //   searchShopsWithProducts,
 //   geocodeAddress,
