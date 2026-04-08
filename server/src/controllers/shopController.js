@@ -127,14 +127,14 @@ const getNearbyShops = async (req, res, next) => {
   }
 };
 
-// const getMyShops = async (req, res, next) => {
-//   try {
-//     const shops = await Shop.find({ owner: req.user._id });
-//     return res.json({ shops });
-//   } catch (error) {
-//     return next(error);
-//   }
-// };
+const getMyShops = async (req, res, next) => {
+  try {
+    const shops = await Shop.find({ owner: req.user._id });
+    return res.json({ shops });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // const searchShopsWithProducts = async (req, res, next) => {
 //   try {
@@ -293,7 +293,7 @@ const getNearbyShops = async (req, res, next) => {
 module.exports = {
   createShop,
   getNearbyShops,
-//   getMyShops,
+  getMyShops,
 //   searchShopsWithProducts,
 //   geocodeAddress,
 //   updateShopLocation,
