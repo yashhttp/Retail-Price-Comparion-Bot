@@ -193,33 +193,33 @@ const searchShopsWithProducts = async (req, res, next) => {
   }
 };
 
-// const geocodeAddress = async (req, res, next) => {
-//   try {
-//     const { address } = req.query;
-//     if (!address) {
-//       return res.status(400).json({ message: "address is required" });
-//     }
+const geocodeAddress = async (req, res, next) => {
+  try {
+    const { address } = req.query;
+    if (!address) {
+      return res.status(400).json({ message: "address is required" });
+    }
 
-//     const apiKey = getGoogleMapsApiKey();
-//     if (!apiKey) {
-//       return res.status(400).json({ message: "Google Maps API key is not configured" });
-//     }
+    const apiKey = getGoogleMapsApiKey();
+    if (!apiKey) {
+      return res.status(400).json({ message: "Google Maps API key is not configured" });
+    }
 
-//     const encoded = encodeURIComponent(address);
-//     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encoded}&key=${apiKey}`;
-//     const response = await fetch(url);
-//     const payload = await response.json();
+    const encoded = encodeURIComponent(address);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encoded}&key=${apiKey}`;
+    const response = await fetch(url);
+    const payload = await response.json();
 
-//     if (!payload.results || payload.results.length === 0) {
-//       return res.status(404).json({ message: "No geocoding results" });
-//     }
+    if (!payload.results || payload.results.length === 0) {
+      return res.status(404).json({ message: "No geocoding results" });
+    }
 
-//     const { lat, lng } = payload.results[0].geometry.location;
-//     return res.json({ location: { lat, lng } });
-//   } catch (error) {
-//     return next(error);
-//   }
-// };
+    const { lat, lng } = payload.results[0].geometry.location;
+    return res.json({ location: { lat, lng } });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // const deleteShop = async (req, res, next) => {
 //   try {
@@ -295,7 +295,7 @@ module.exports = {
   getNearbyShops,
   getMyShops,
   searchShopsWithProducts,
-//   geocodeAddress,
+  geocodeAddress,
 //   updateShopLocation,
 //   deleteShop
 };
