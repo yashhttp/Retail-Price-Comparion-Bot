@@ -241,54 +241,54 @@ const deleteShop = async (req, res, next) => {
   }
 };
 
-// const updateShopLocation = async (req, res, next) => {
-//   try {
-//     const { shopId } = req.params;
+const updateShopLocation = async (req, res, next) => {
+  try {
+    const { shopId } = req.params;
 
-//     const shop = await Shop.findById(shopId);
-//     if (!shop) {
-//       return res.status(404).json({ message: "Shop not found" });
-//     }
+    const shop = await Shop.findById(shopId);
+    if (!shop) {
+      return res.status(404).json({ message: "Shop not found" });
+    }
 
-//     if (shop.owner.toString() !== req.user._id.toString()) {
-//       return res.status(403).json({ message: "You can only update your own shops" });
-//     }
+    if (shop.owner.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "You can only update your own shops" });
+    }
 
-//     if (!shop.address) {
-//       return res.status(400).json({ message: "Shop must have an address to geocode" });
-//     }
+    if (!shop.address) {
+      return res.status(400).json({ message: "Shop must have an address to geocode" });
+    }
 
-//     const apiKey = getGoogleMapsApiKey();
-//     if (!apiKey) {
-//       return res.status(400).json({ message: "Google Maps API is not configured. Contact admin." });
-//     }
+    const apiKey = getGoogleMapsApiKey();
+    if (!apiKey) {
+      return res.status(400).json({ message: "Google Maps API is not configured. Contact admin." });
+    }
 
-//     const encoded = encodeURIComponent(shop.address);
-//     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encoded}&key=${apiKey}`;
-//     const response = await fetch(url);
-//     const payload = await response.json();
+    const encoded = encodeURIComponent(shop.address);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encoded}&key=${apiKey}`;
+    const response = await fetch(url);
+    const payload = await response.json();
 
-//     if (!payload.results || payload.results.length === 0) {
-//       return res.status(404).json({ message: "Could not find location for this address" });
-//     }
+    if (!payload.results || payload.results.length === 0) {
+      return res.status(404).json({ message: "Could not find location for this address" });
+    }
 
-//     const { lat, lng } = payload.results[0].geometry.location;
-//     const updatedShop = await Shop.findByIdAndUpdate(
-//       shopId,
-//       {
-//         location: {
-//           type: "Point",
-//           coordinates: [lng, lat]
-//         }
-//       },
-//       { new: true }
-//     );
+    const { lat, lng } = payload.results[0].geometry.location;
+    const updatedShop = await Shop.findByIdAndUpdate(
+      shopId,
+      {
+        location: {
+          type: "Point",
+          coordinates: [lng, lat]
+        }
+      },
+      { new: true }
+    );
 
-//     return res.json({ shop: updatedShop, message: "Location updated successfully" });
-//   } catch (error) {
-//     return next(error);
-//   }
-// };
+    return res.json({ shop: updatedShop, message: "Location updated successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 module.exports = {
   createShop,
@@ -296,6 +296,6 @@ module.exports = {
   getMyShops,
   searchShopsWithProducts,
   geocodeAddress,
-//   updateShopLocation,
+  updateShopLocation,
   deleteShop
 };
