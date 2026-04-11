@@ -9,6 +9,7 @@ const { initializeSocket } = require("./socket");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const shopRoutes = require("./routes/shopRoutes");
+const productRoutes = require("./routes/productRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -26,7 +27,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
-
+app.use("/api/products", productRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
