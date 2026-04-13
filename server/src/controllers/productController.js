@@ -163,3 +163,6 @@ const listProducts = async (req, res, next) => {
     return next(error);
   }
 };
+
+
+module.exports = { createProduct, listProducts};
