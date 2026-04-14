@@ -14,5 +14,13 @@ const listNotifications = async (req, res, next) => {
   }
 };
 
-
-module.exports = { listNotifications };
+const markRead = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Notification.findOneAndUpdate({ _id: id, user: req.user._id }, { read: true });
+    return res.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+module.exports = { listNotifications, markRead };
