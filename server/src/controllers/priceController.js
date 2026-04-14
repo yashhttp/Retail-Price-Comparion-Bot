@@ -125,6 +125,46 @@ const getPriceHistory = async (req, res, next) => {
     return next(error);
   }
 };
+const calculatePriceAnalytics = (history) => {
+  if (!history || history.length === 0) {
+    return {
+      currentPrice: null,
+      minPrice: null,
+      maxPrice: null,
+      averagePrice: null,
+      percentageChange: null,
+      trend: "neutral",
+      dataPoints: 0
+    };
+  }
 
+  const prices = history.map((entry) => entry.price);
+  const currentPrice = prices[prices.length - 1];
+  const previousPrice = prices.length > 1 ? prices[prices.length - 2] : currentPrice;
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const averagePrice = prices.reduce((sum, price) => sum + price, 0) / prices.length;
+  const percentageChange = previousPrice !== 0 
+    ? ((currentPrice - previousPrice) / previousPrice) * 100 
+    : 0;
+
+  // Determine trend based on comparison with average
+  let trend = "neutral";
+  if (currentPrice < averagePrice * 0.95) {
+    trend = "declining";
+  } else if (currentPrice > averagePrice * 1.05) {
+    trend = "rising";
+  }
+
+  return {
+    currentPrice: parseFloat(currentPrice.toFixed(2)),
+    minPrice: parseFloat(minPrice.toFixed(2)),
+    maxPrice: parseFloat(maxPrice.toFixed(2)),
+    averagePrice: parseFloat(averagePrice.toFixed(2)),
+    percentageChange: parseFloat(percentageChange.toFixed(2)),
+    trend,
+    dataPoints: history.length
+  };
+};
 
 module.exports = { createOrUpdatePrice,listPrices, getPriceHistory};
