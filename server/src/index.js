@@ -11,6 +11,7 @@ const userRoutes = require("./routes/userRoutes");
 const shopRoutes = require("./routes/shopRoutes");
 const productRoutes = require("./routes/productRoutes");
 const priceRoutes = require("./routes/priceRoutes");
+const chatbotRoutes = require("./routes/chatbotRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/prices", priceRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
