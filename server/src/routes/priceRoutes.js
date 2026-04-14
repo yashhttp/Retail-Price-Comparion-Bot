@@ -4,12 +4,16 @@ const { requireRole } = require("../middleware/roles");
 const {
 //  
   listPrices,
+  createOrUpdatePrice,
+  getPriceHistory
+
 
 } = require("../controllers/priceController");
 
 const router = express.Router();
 
 router.get("/", listPrices);
-
+router.get("/history/:productId", getPriceHistory);
+router.post("/", authenticate, requireRole("shopkeeper", "admin"), createOrUpdatePrice);
 
 module.exports = router;

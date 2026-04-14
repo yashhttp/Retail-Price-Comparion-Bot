@@ -106,7 +106,25 @@ const listPrices = async (req, res, next) => {
     return next(error);
   }
 };
+const getPriceHistory = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const { shopId } = req.query;
+    const filter = { product: productId };
+    if (shopId) {
+      filter.shop = shopId;
+    }
+
+    const history = await PriceHistory.find(filter).sort({ recordedAt: 1 });
+    
+    // Calculate analytics
+    const analytics = calculatePriceAnalytics(history);
+    
+    return res.json({ history, analytics });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 
-
-module.exports = { createOrUpdatePrice,listPrices };
+module.exports = { createOrUpdatePrice,listPrices, getPriceHistory};
