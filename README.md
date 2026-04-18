@@ -1,4 +1,4 @@
-🛒 Retail Price Comparison Bot
+use🛒 Retail Price Comparison Bot
 A smart bot that compares product prices across multiple e-commerce platforms and helps users find the best deals in real-time.
 🚀 Features
 🔍 Search products across multiple platforms
@@ -35,3 +35,9 @@ cd price-comparison-bot
 
 # Install dependencies
 npm install
+cookie-parser
+helmet
+cors
+axios
+express
+mongoose 
