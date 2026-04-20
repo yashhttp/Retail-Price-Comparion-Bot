@@ -36,6 +36,7 @@ app.use("/api/prices", priceRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
 
