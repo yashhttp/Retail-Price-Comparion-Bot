@@ -1,6 +1,7 @@
 jiuse🛒 Retail Price Comparison Bot
 A smart bot that compares product prices across multiple e-commerce platforms and helps users find the best deals in real-time.
 🚀 Features
+multiple features have in this project 
 
 
 🔍 Search products across multiple platforms
