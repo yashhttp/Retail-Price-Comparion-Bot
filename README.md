@@ -47,3 +47,7 @@ mongoose
 dotenv
 color
 
+#project setup
+server.js
+app.js
+
