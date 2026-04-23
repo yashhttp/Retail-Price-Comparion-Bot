@@ -1,0 +1,50 @@
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output and caches
+server/dist/
+server/build/
+client/.vite/
+client/.cache/
+coverage/
+.nyc_output/
+
+# Environment and secrets (privacy)
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Keys, certificates, and sensitive dumps (privacy)
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.kdbx
+*.sqlite
+*.db
+*.sql
+*.bak
+*.backup
+
+# Local uploads and generated assets
+uploads/
+tmp/
+temp/

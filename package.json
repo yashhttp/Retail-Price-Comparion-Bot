@@ -1,14 +1,22 @@
 {
   "name": "prc",
   "version": "1.0.0",
-  "description": "",
+  "description": "jiuse🛒 Retail Price Comparison Bot A smart bot that compares product prices across multiple e-commerce platforms and helps users find the best deals in real-time. 🚀 Features",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashhttp/Retail-Price-Comparion-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yashhttp/Retail-Price-Comparion-Bot/issues"
+  },
+  "homepage": "https://github.com/yashhttp/Retail-Price-Comparion-Bot#readme"
 }
