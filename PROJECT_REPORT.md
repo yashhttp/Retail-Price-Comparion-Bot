@@ -251,5 +251,8 @@ Use this simple speaking structure:
 
 Retail Price Comparison Bot is a complete full-stack product that demonstrates practical MERN architecture, real-world integrations, and role-based workflows. It is suitable to present as both a technical portfolio project and a business-oriented product prototype.
 
+👨‍💻 Author
+
+Yash Saini Full Stack Developer 🚀
 
 YASH SAINI 💀
