@@ -50,4 +50,6 @@ color
 #project setup
 server.js
 app.js
-
+.env
+package.json
+package.lock.json
