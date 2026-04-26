@@ -164,5 +164,112 @@ const listProducts = async (req, res, next) => {
   }
 };
 
+const searchProducts = async (req, res, next) => {
+  try {
+    const { q, lat, lng, radius = 10000, address } = req.query;
 
-module.exports = { createProduct, listProducts};
+    if (!q || !q.trim()) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    const cleanQuery = normalizeInput(q);
+
+    // 1. Find products matching the query
+    const products = await Product.find({
+      $text: { $search: cleanQuery }
+    }).limit(20);
+
+    if (products.length === 0) {
+      return res.json({ results: [] });
+    }
+
+    const productIds = products.map((p) => p._id);
+
+    // 2. Find nearby shops if location is provided
+    let shopFilter = {};
+    if (lat && lng) {
+      const nearbyShops = await Shop.find({
+        location: {
+          $near: {
+            $geometry: { type: "Point", coordinates: [Number(lng), Number(lat)] },
+            $maxDistance: Number(radius)
+          }
+        }
+      }).select("_id");
+
+      shopFilter = { shop: { $in: nearbyShops.map((s) => s._id) } };
+    }
+
+    // 3. Find price listings for these products
+    const listings = await PriceListing.find({
+      product: { $in: productIds },
+      ...shopFilter
+    })
+      .populate("product")
+      .populate("shop")
+      .sort({ price: 1 });
+
+    // Group results by product
+    const resultsMap = new Map();
+    listings.forEach((listing) => {
+      const productId = listing.product._id.toString();
+      if (!resultsMap.has(productId)) {
+        resultsMap.set(productId, {
+          product: listing.product,
+          listings: []
+        });
+      }
+      resultsMap.get(productId).listings.push(listing);
+    });
+
+    const results = Array.from(resultsMap.values());
+
+    // Track search activity if user is logged in
+    if (req.user) {
+      await trackSearchActivity(req.user._id, q, address);
+    }
+
+    return res.json({ results });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getMyProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find({ owner: req.user._id }).sort({ createdAt: -1 });
+    return res.json({ products });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.owner.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+      return res.status(403).json({ message: "Not authorized to delete this product" });
+    }
+
+    await Product.findByIdAndDelete(productId);
+    await PriceListing.deleteMany({ product: productId });
+
+    return res.json({ message: "Product and associated listings deleted" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = {
+  createProduct,
+  listProducts,
+  searchProducts,
+  getMyProducts,
+  deleteProduct
+};
