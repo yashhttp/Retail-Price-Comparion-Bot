@@ -20,7 +20,7 @@ Quickly find the best deals
 Backend
 Node.js
 Express.js
-Database
+Database 
 MongoDB
 Scraping / APIs
 Axios / Puppeteer / Cheerio
