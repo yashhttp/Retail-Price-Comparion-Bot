@@ -31,6 +31,7 @@ JWT Authentication
 REST APIs
 Cron Jobs (for price updates)
  # Clone the repo
+ 
 git clone https://github.com/your-username/price-comparison-bot.git
 
 # Go to project folder
