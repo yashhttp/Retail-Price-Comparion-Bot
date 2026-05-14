@@ -3,7 +3,6 @@ A smart bot that compares product prices across multiple e-commerce platforms an
 🚀 Features
 multiple features have in this project 
 
-
 🔍 Search products across multiple platforms
 💰 Compare prices in one place
 📊 Show cheapest, average, and highest price
